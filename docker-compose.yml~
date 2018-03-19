@@ -1,0 +1,66 @@
+version: "2"
+services:
+  peer1ip:
+    image: store/eureka:0.0.1-SNAPSHOT
+    ports:
+      - "8761:8761"
+    environment:
+      - spring.profiles.active=peer1
+
+  peer2ip:
+    image: store/eureka:0.0.1-SNAPSHOT
+    ports:
+      - "8762:8762"
+    environment:
+      - spring.profiles.active=peer2
+
+  mysqlServer:
+    container_name: mysqlServerIp
+    image: mysql
+    ports:
+      - "3303:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=123456
+      - MYSQL_DATABASE=store
+
+  user:
+    image: store/user:0.0.1-SNAPSHOT
+    ports:
+      - "9002:9002"
+    environment:
+      - spring.profiles.active=docker
+    links:
+      - mysqlServer:mysqlServer
+      - peer1ip:peer1ip
+      - peer2ip:peer2ip
+  
+  cart:
+    image: store/cart:0.0.1-SNAPSHOT
+    ports:
+      - "9004:9004"
+    environment:
+      - spring.profiles.active=docker
+    links:
+      - mysqlServer:mysqlServer
+      - peer1ip:peer1ip
+      - peer2ip:peer2ip
+
+  product:
+    image: store/product:0.0.1-SNAPSHOT
+    ports:
+      - "9001:9001"
+    environment:
+      - spring.profiles.active=docker
+    links:
+      - mysqlServer:mysqlServer
+      - peer1ip:peer1ip
+      - peer2ip:peer2ip
+
+  store:
+    image: store/store:0.0.1-SNAPSHOT
+    ports:
+      - "8090:8090"
+    links:
+      - peer1ip:peer1ip
+      - peer2ip:peer2ip
+  
