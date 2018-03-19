@@ -29,10 +29,10 @@ services:
       - "9002:9002"
     environment:
       - spring.profiles.active=docker
-    links:
-      - mysqlServer:mysqlServer
-      - peer1ip:peer1ip
-      - peer2ip:peer2ip
+        #    links:
+        #      - mysqlServer:mysqlServer
+        #      - peer1ip:peer1ip
+        #      - peer2ip:peer2ip
   
   cart:
     image: store/cart:0.0.1-SNAPSHOT
@@ -40,10 +40,10 @@ services:
       - "9004:9004"
     environment:
       - spring.profiles.active=docker
-    links:
-      - mysqlServer:mysqlServer
-      - peer1ip:peer1ip
-      - peer2ip:peer2ip
+        #    links:
+        #      - mysqlServer:mysqlServer
+        #      - peer1ip:peer1ip
+        #      - peer2ip:peer2ip
 
   product:
     image: store/product:0.0.1-SNAPSHOT
@@ -51,16 +51,16 @@ services:
       - "9001:9001"
     environment:
       - spring.profiles.active=docker
-    links:
-      - mysqlServer:mysqlServer
-      - peer1ip:peer1ip
-      - peer2ip:peer2ip
+        #    links:
+        #      - mysqlServer:mysqlServer
+        #      - peer1ip:peer1ip
+        #      - peer2ip:peer2ip
 
   store:
     image: store/store:0.0.1-SNAPSHOT
     ports:
       - "8090:8090"
-    links:
-      - peer1ip:peer1ip
-      - peer2ip:peer2ip
+        #    links:
+        #      - peer1ip:peer1ip
+        #      - peer2ip:peer2ip
   
