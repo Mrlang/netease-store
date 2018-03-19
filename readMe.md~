@@ -8,5 +8,3 @@
 
 访问localhost:8090，进入首页。
 访问localhost:8761可看到各应用注册状态。
-
-如果要通过docker启动，先在各项目pom.xml所在目录下mvn clean package docker:build制作个项目镜像，还要下载mysql镜像，然后在neteaseWork目录下docker-compose up,在localhost:8761可以看到各项目注册信息。
